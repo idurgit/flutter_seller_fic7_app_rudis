@@ -1,19 +1,27 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_seller_fic7_app_rudis/block/add_image/add_image_bloc.dart';
-import 'package:flutter_seller_fic7_app_rudis/block/add_product/add_product_bloc.dart';
-import 'package:flutter_seller_fic7_app_rudis/block/categories/categories_bloc.dart';
-import 'package:flutter_seller_fic7_app_rudis/block/produtcs/products_bloc.dart';
+import 'package:flutter_seller_fic7_app_rudis/data/datasources/firebase_messaging_remote_datasource.dart';
+import '../../../block/add_image/add_image_bloc.dart';
+import '../../../block/add_product/add_product_bloc.dart';
+import '../../../block/categories/categories_bloc.dart';
+import '../../../block/produtcs/products_bloc.dart';
 
 import 'block/login/login_bloc.dart';
 import 'block/logout/logout_bloc.dart';
 import 'block/register/register_bloc.dart';
 import 'data/datasources/auth_local_datasource.dart';
+import 'firebase_options.dart';
 import 'pages/auth/auth_page.dart';
 import 'pages/dashboard/seller_dashboard_page.dart';
 import 'utils/light_themes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseMessagingRemoteDatasource().initNotification();
   runApp(const MyApp());
 }
 
